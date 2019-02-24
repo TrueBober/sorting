@@ -6,8 +6,19 @@ import java.util.Objects;
 
 public interface Sorting<T extends Comparable> {
 
+    /**
+     * Отсортировать список.
+     */
     void sort(List<T> inputList);
 
+    /**
+     * Обратная сортировка списка.
+     */
+    void reverse(List<T> inputList);
+
+    /**
+     * Скопировать список и отсортировать.
+     */
     default List<T> copyAndSort(List<T> inputList) {
         //игнорировать null
         if (Objects.isNull(inputList)) {
