@@ -47,7 +47,7 @@ class BubbleSortingTest {
         for (int i = 0; i < k; i++, elements.add(random.nextInt())) ;
 
         //сортировка
-        bubbleSorting.sort(elements);
+        elements = bubbleSorting.copyAndSort(elements);
 
         //проверка, что каждый следующий элемент <= предыдущему
         for (int i = 1; i < elements.size(); i++) {

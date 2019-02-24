@@ -1,9 +1,10 @@
 package ru.kip.sorting;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
+/**
+ * Интерфейс сортировки.
+ */
 public interface Sorting<T extends Comparable> {
 
     /**
@@ -19,13 +20,13 @@ public interface Sorting<T extends Comparable> {
     /**
      * Скопировать список и отсортировать.
      */
-    default List<T> copyAndSort(List<T> inputList) {
+    default List<T> copyAndSort(Collection<T> inputList) {
         //игнорировать null
         if (Objects.isNull(inputList)) {
             return null;
         }
 
-        List<T> result = new LinkedList<>(inputList);
+        List<T> result = new ArrayList<>(inputList);
         sort(result);
 
         return result;

@@ -5,12 +5,11 @@ import org.slf4j.Logger;
 import java.util.List;
 import java.util.Objects;
 
+import static java.util.Collections.swap;
 import static org.slf4j.LoggerFactory.getLogger;
 
 /**
  * Пузырьковая сортировка.
- *
- * @param <T>
  */
 public class BubbleSorting<T extends Comparable> implements Sorting<T> {
     private static final Logger log = getLogger(BubbleSorting.class);
@@ -66,12 +65,5 @@ public class BubbleSorting<T extends Comparable> implements Sorting<T> {
         if (attempts < 0) {
             throw new IllegalStateException();
         }
-    }
-
-    //поменять элементы местами
-    private void swap(List<T> inputList, int a, int b) {
-        T tmp = inputList.get(a);
-        inputList.set(a, inputList.get(b));
-        inputList.set(b, tmp);
     }
 }
