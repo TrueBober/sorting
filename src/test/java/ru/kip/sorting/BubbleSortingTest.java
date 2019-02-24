@@ -39,7 +39,7 @@ class BubbleSortingTest {
 
     @Test
     void sort_manyNumbers_OK() {
-        int k = 1000;
+        int k = 500;
         Random random = new Random();
         List<Integer> elements = new LinkedList<>();
 
@@ -52,6 +52,24 @@ class BubbleSortingTest {
         //проверка, что каждый следующий элемент <= предыдущему
         for (int i = 1; i < elements.size(); i++) {
             assertTrue(elements.get(i) >= elements.get(i - 1));
+        }
+    }
+
+    @Test
+    void reverse_OK() {
+        int k = 500;
+        Random random = new Random();
+        List<Integer> elements = new LinkedList<>();
+
+        //заполнение массива случайными числами
+        for (int i = 0; i < k; i++, elements.add(random.nextInt())) ;
+
+        //сортировка
+        bubbleSorting.reverse(elements);
+
+        //проверка, что каждый следующий элемент <= предыдущему
+        for (int i = 1; i < elements.size(); i++) {
+            assertTrue(elements.get(i) <= elements.get(i - 1));
         }
     }
 }
