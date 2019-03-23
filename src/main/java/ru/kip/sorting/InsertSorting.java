@@ -44,7 +44,7 @@ public class InsertSorting<T extends Comparable> implements Sorting<T> {
             T current = inputList.get(i);
 
             //все элементы слева от i по очереди сдвигаются на 1 позицию вправо до тех пор, пока текущий элемент не
-            //станет меньше элемента на позиции
+            //станет меньше элемента на позиции (при прямой сортировке)
             for (int j = i - 1; j >= 0; j--) {
                 int compareResult = current.compareTo(inputList.get(j));
                 if (reverse && compareResult < 0 || !reverse && compareResult > 0) {
