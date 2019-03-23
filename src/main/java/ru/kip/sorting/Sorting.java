@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Интерфейс сортировки.
  */
-public interface Sorting<T extends Comparable> {
+public interface Sorting<T extends Comparable<? super T>> {
 
     /**
      * Отсортировать список (по возрастанию).
