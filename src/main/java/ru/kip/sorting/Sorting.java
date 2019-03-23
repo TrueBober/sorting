@@ -8,28 +8,38 @@ import java.util.*;
 public interface Sorting<T extends Comparable> {
 
     /**
-     * Отсортировать список.
+     * Отсортировать список (по возрастанию).
      */
     void sort(List<T> inputList);
 
     /**
-     * Обратная сортировка списка.
+     * Отсортировать список (по убыванию).
      */
     void reverse(List<T> inputList);
 
     /**
      * Скопировать список и отсортировать.
+     * @param inputList коллекция элементов.
+     * @param reverse сортировать в обратном порядке.
      */
-    default List<T> copyAndSort(Collection<T> inputList) {
-        //игнорировать null
+    default List<T> copyAndSort(Collection<T> inputList, boolean reverse) {
         if (Objects.isNull(inputList)) {
             return null;
         }
+        if (inputList.isEmpty()) {
+            return List.of();
+        }
 
+        //подготовить копию элементов
         List<T> result = new ArrayList<>(inputList);
-        sort(result);
+
+        //сортировка
+        if(reverse) {
+            reverse(result);
+        } else {
+            sort(result);
+        }
 
         return result;
     }
-
 }
