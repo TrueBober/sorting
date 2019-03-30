@@ -2,6 +2,7 @@ package ru.kip.sorting;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -24,7 +25,7 @@ public abstract class SortingTest {
 
     @Test
     void sort_emptyList_nothingToDo() {
-        List<Integer> list = List.of();
+        List<Integer> list = new ArrayList<>();
         sorting.sort(list);
     }
 
