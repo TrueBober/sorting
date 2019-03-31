@@ -26,10 +26,8 @@ public class MergeSorting<T extends Comparable<? super T>> implements Sorting<T>
         if (inputList.size() < 2) {
             return;
         }
-
-        List<T> result = sort(inputList, false);
-        inputList.clear();
-        inputList.addAll(result);
+        List<T> result = new LinkedList<>(inputList);
+        sort(inputList, false, result, 0, inputList.size());
     }
 
     @Override
@@ -45,43 +43,43 @@ public class MergeSorting<T extends Comparable<? super T>> implements Sorting<T>
             return;
         }
 
-        List<T> result = sort(inputList, true);
-        inputList.clear();
-        inputList.addAll(result);
+        List<T> result = new LinkedList<>(inputList);
+        sort(inputList, true, result, 0, inputList.size());
     }
 
-    public List<T> sort(List<T> inputList, boolean reverse) {
-        if (inputList.size() < 2) {
-            return inputList;
+    public void sort(List<T> inputList, boolean reverse, List<T> result, int position, int elements) {
+        if (elements <= 1) {
+            return;
         }
 
-        int median = inputList.size() / 2;
-        List<T> sublistA = inputList.subList(0, median);
-        List<T> sublistB = inputList.subList(median, inputList.size());
-        sublistA = sort(sublistA, reverse);
-        sublistB = sort(sublistB, reverse);
-        return merge(sublistA, sublistB, reverse);
+        int median = elements / 2;
+        sort(inputList, reverse, result, position, median);
+        sort(inputList, reverse, result, position + median, elements - median);
+        merge(inputList, reverse, result, position, median, elements);
     }
 
-    private List<T> merge(List<T> a, List<T> b, boolean reverse) {
-        int i = 0, aMarker = 0, bMarker = 0;
-        List<T> result = new LinkedList<>();
+    protected void merge(List<T> originalArray, boolean reverse, List<T> result, int position, int median, int elements) {
+        int n = position, lMarker = position, rMarker = position + median;
 
-        while (aMarker < a.size() && bMarker < b.size() && i++ < a.size() + b.size()) {
-            int compareResult = a.get(aMarker).compareTo(b.get(bMarker));
+        while (lMarker < position + median && rMarker < position + elements) {
+            int compareResult = originalArray.get(lMarker).compareTo(originalArray.get(rMarker));
             if (compareResult < 0 && reverse || compareResult > 0 && !reverse) {
-                result.add(b.get(bMarker++));
+                result.set(n++, originalArray.get(rMarker++));
             } else {
-                result.add(a.get(aMarker++));
+                result.set(n++, originalArray.get(lMarker++));
             }
         }
 
-        if (a.size() - aMarker > 0) {
-            result.addAll(a.subList(aMarker, a.size()));
-        } else if (b.size() - bMarker > 0) {
-            result.addAll(b.subList(bMarker, b.size()));
+        while (lMarker < position + median) {
+            result.set(n++, originalArray.get(lMarker++));
         }
 
-        return result;
+        while (rMarker < position + median) {
+            result.set(n++, originalArray.get(rMarker++));
+        }
+
+        for (int i = position; i < position + elements; i++) {
+            originalArray.set(i, result.get(i));
+        }
     }
 }

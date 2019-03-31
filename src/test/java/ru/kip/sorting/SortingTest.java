@@ -38,7 +38,7 @@ public abstract class SortingTest {
 
     @Test
     void sort_manyNumbers_OK() {
-        int k = 500;
+        int k = 10000;
         Random random = new Random();
         List<Integer> elements = new LinkedList<>();
 
@@ -56,7 +56,7 @@ public abstract class SortingTest {
 
     @Test
     void reverse_OK() {
-        int k = 500;
+        int k = 10000;
         Random random = new Random();
         List<Integer> elements = new LinkedList<>();
 
