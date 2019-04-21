@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -39,11 +41,7 @@ public abstract class SortingTest {
     @Test
     void sort_manyNumbers_OK() {
         int k = 10000;
-        Random random = new Random();
-        List<Integer> elements = new LinkedList<>();
-
-        //заполнение массива случайными числами
-        for (int i = 0; i < k; i++, elements.add(random.nextInt())) ;
+        List<Integer> elements = getRandomNumbers(k);
 
         //сортировка
         elements = sorting.copyAndSort(elements, false);
@@ -54,14 +52,18 @@ public abstract class SortingTest {
         }
     }
 
+    private List<Integer> getRandomNumbers(int k) {
+        Random random = new Random();
+        return Stream.iterate(1, n -> n + 1)
+                .limit(k)
+                .map(n -> random.nextInt())
+                .collect(Collectors.toList());
+    }
+
     @Test
     void reverse_OK() {
         int k = 10000;
-        Random random = new Random();
-        List<Integer> elements = new LinkedList<>();
-
-        //заполнение массива случайными числами
-        for (int i = 0; i < k; i++, elements.add(random.nextInt())) ;
+        List<Integer> elements = getRandomNumbers(k);
 
         //сортировка
         sorting.reverse(elements);
